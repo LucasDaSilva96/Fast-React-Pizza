@@ -1,6 +1,6 @@
 // Test ID: IIDSAT
 
-import { useLoaderData } from "react-router-dom";
+import { useFetcher, useLoaderData } from "react-router-dom";
 import { getOrder } from "../../services/apiRestaurant";
 import {
   calcMinutesLeft,
@@ -8,9 +8,21 @@ import {
   formatDate,
 } from "../../utils/helpers";
 import OrderItem from "./OrderItem";
+import { useEffect } from "react";
+import UpdateOrder from "./UpdateOrder";
 
 function Order() {
   const order = useLoaderData();
+
+  const fetcher = useFetcher();
+
+  useEffect(
+    function () {
+      if (!fetcher.data && fetcher.state === "idle") fetcher.load("/menu");
+    },
+    [fetcher],
+  );
+
   // Everyone can search for all orders, so for privacy reasons we're gonna gonna exclude names or address, these are only for the restaurant staff
   const {
     id,
@@ -30,7 +42,7 @@ function Order() {
 
         <div className="space-x-2">
           {priority && (
-            <span className="rounded-full bg-red-400 px-3 py-1 text-sm font-semibold uppercase tracking-wide text-red-50">
+            <span className="rounded-full bg-red-600 px-3 py-1 text-sm font-semibold uppercase tracking-wide text-red-50">
               Priority
             </span>
           )}
@@ -53,7 +65,19 @@ function Order() {
 
       <ul className="dive-stone-200 divide-y border-b border-t">
         {cart.map((item) => {
-          return <OrderItem item={item} key={item.id}></OrderItem>;
+          return (
+            <OrderItem
+              item={item}
+              key={item.pizzaId}
+              ingredients={
+                fetcher.data !== undefined
+                  ? fetcher.data.find((el) => el.id === item.pizzaId)
+                      .ingredients
+                  : null
+              }
+              isLoadingIngredients={fetcher.state === "loading"}
+            ></OrderItem>
+          );
         })}
       </ul>
 
@@ -70,6 +94,7 @@ function Order() {
           To pay on delivery: {formatCurrency(orderPrice + priorityPrice)}
         </p>
       </div>
+      {!priority && <UpdateOrder order={order}></UpdateOrder>}
     </div>
   );
 }
