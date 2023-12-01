@@ -1,8 +1,9 @@
-# React + Vite
+# Pizza Palace - Your Online Pizza Ordering Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Pizza Palace is a modern and user-friendly web application that allows pizza enthusiasts to explore a delightful menu of mouthwatering pizzas, customize their orders, and seamlessly place online pizza orders. With a sleek and intuitive interface, users can effortlessly navigate through the menu, view pizza details, and add their favorite items to the cart.
 
-Currently, two official plugins are available:
+![Alt text](./src/img/Fast-react-pizza.png "Fast React Pizza")
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+#### 🎉 Shoutout to Jonas Schmedtmann! 🚀
+
+A big thank you to Jonas Schmedtmann for being an inspiring and dedicated teacher!
